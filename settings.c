@@ -50,6 +50,8 @@ static ConfigEntry settings_entries[] = {
 	{ "USBDEVICE", CONFIG_TYPE_DECIMAL, (int *)&vitashell_config.usbdevice },
 	{ "SELECT_BUTTON", CONFIG_TYPE_DECIMAL, (int *)&vitashell_config.select_button },
 	{ "DISABLE_AUTOUPDATE", CONFIG_TYPE_BOOLEAN, (int *)&vitashell_config.disable_autoupdate },
+	{ "QR_DELETE_VPK", CONFIG_TYPE_BOOLEAN, (int *)&vitashell_config.qr_delete_vpk },
+	{ "QR_DOWNLOAD_USING_BROWSER", CONFIG_TYPE_BOOLEAN, (int *)&vitashell_config.qr_download_using_browser },
 };
 
 static ConfigEntry theme_entries[] = {
@@ -71,6 +73,11 @@ SettingsMenuOption main_settings[] = {
 	{ VITASHELL_SETTINGS_RESTART_SHELL,		SETTINGS_OPTION_TYPE_CALLBACK, (void *)restartShell, NULL, 0, NULL, 0, NULL },
 };
 
+SettingsMenuOption qr_settings[] = {
+	{ VITASHELL_SETTINGS_QR_DELETE_VPK,		SETTINGS_OPTION_TYPE_BOOLEAN, NULL, NULL, 0, NULL, 0, &vitashell_config.qr_delete_vpk },
+	{ VITASHELL_SETTINGS_QR_USE_BROWSER,	SETTINGS_OPTION_TYPE_BOOLEAN, NULL, NULL, 0, NULL, 0, &vitashell_config.qr_download_using_browser },
+};
+
 SettingsMenuOption power_settings[] = {
 	{ VITASHELL_SETTINGS_REBOOT,		SETTINGS_OPTION_TYPE_CALLBACK, (void *)rebootDevice, NULL, 0, NULL, 0, NULL },
 	{ VITASHELL_SETTINGS_POWEROFF,		SETTINGS_OPTION_TYPE_CALLBACK, (void *)shutdownDevice, NULL, 0, NULL, 0, NULL },
@@ -79,6 +86,7 @@ SettingsMenuOption power_settings[] = {
 
 SettingsMenuEntry vitashell_settings_menu_entries[] = {
 	{ VITASHELL_SETTINGS_MAIN, main_settings, sizeof(main_settings) / sizeof(SettingsMenuOption) },
+	{ VITASHELL_SETTINGS_QR, qr_settings, sizeof(qr_settings) / sizeof(SettingsMenuOption) },
 	{ VITASHELL_SETTINGS_POWER, power_settings, sizeof(power_settings) / sizeof(SettingsMenuOption) },
 };
 

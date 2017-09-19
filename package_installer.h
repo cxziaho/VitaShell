@@ -26,6 +26,7 @@
 
 typedef struct {
 	char *file;
+	int deleteOnInstall;
 } InstallArguments;
 
 int promoteApp(const char *path);

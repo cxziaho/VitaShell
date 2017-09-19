@@ -1049,6 +1049,8 @@ static int dialogSteps() {
 			if (msg_result == MESSAGE_DIALOG_RESULT_RUNNING) {
 				InstallArguments args;
 				args.file = getLastDownloadQR();
+				if (vitashell_config.qr_delete_vpk)
+					args.deleteOnInstall = 1;
 
 				setDialogStep(DIALOG_STEP_INSTALLING);
 

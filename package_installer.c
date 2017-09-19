@@ -403,6 +403,9 @@ int install_thread(SceSize args_size, InstallArguments *args) {
 		goto EXIT;
 	}
 
+	if (args->deleteOnInstall && !isFolder)
+		sceIoRemove(args->file);
+
 	// Set progress to 100%
 	sceMsgDialogProgressBarSetValue(SCE_MSG_DIALOG_PROGRESSBAR_TARGET_BAR_DEFAULT, 100);
 	sceKernelDelayThread(COUNTUP_WAIT);

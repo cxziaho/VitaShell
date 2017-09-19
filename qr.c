@@ -40,6 +40,7 @@
 #include "message_dialog.h"
 #include "language.h"
 #include "utils.h"
+#include "vitashell_config.h"
 
 static int qr_enabled;
 
@@ -106,6 +107,10 @@ int qr_scan_thread(SceSize args, void *argp) {
 		if (!(data[0] == 'h' && data[1] == 't' && data[2] == 't' && data[3] == 'p')) {
 			initMessageDialog(SCE_MSG_DIALOG_BUTTON_TYPE_OK, language_container[QR_SHOW_CONTENTS], data);
 			setDialogStep(DIALOG_STEP_QR_SHOW_CONTENTS);
+			return sceKernelExitDeleteThread(0);
+		} else if (vitashell_config.qr_download_using_browser) {
+			initMessageDialog(SCE_MSG_DIALOG_BUTTON_TYPE_YESNO, language_container[QR_OPEN_WEBSITE], data);
+			setDialogStep(DIALOG_STEP_QR_OPEN_WEBSITE);
 			return sceKernelExitDeleteThread(0);
 		}
 	} else {
